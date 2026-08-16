@@ -23,7 +23,7 @@
         <javafx.version>21.0.2</javafx.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <gluon.attach.version>4.0.25</gluon.attach.version>
-        <gluonfx.plugin.version>1.0.22</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.29</gluonfx.plugin.version>
         <compiler.plugin.version>3.13.0</compiler.plugin.version>
     </properties>
 
