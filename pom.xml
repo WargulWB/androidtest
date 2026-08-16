@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://apache.org"
+         xmlns:xsi="http://w3.org"
+         xsi:schemaLocation="http://apache.org http://apache.org">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Project Coordinates -->
+    <groupId>com.example</groupId>
+    <artifactId>javafx-android-app</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <!-- Project Metadata -->
+    <name>androidtest</name>
+    <description>A JavaFX mobile application targeting Android using GluonFX.</description>
+
+    <properties>
+        <!-- Project Configuration -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+        
+        <!-- Dependency Versions -->
+        <javafx.version>21.0.2</javafx.version>
+        <javafx.plugin.version>0.0.8</javafx.plugin.version>
+        <gluon.attach.version>4.0.25</gluon.attach.version>
+        <gluonfx.plugin.version>1.0.22</gluonfx.plugin.version>
+        <compiler.plugin.version>3.13.0</compiler.plugin.version>
+    </properties>
+
+    <dependencies>
+        <!-- JavaFX Core Controls -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- JavaFX FXML (Optional: Remove if you only use Java code for UI) -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- Gluon Attach: Storage Service for Mobile File Access -->
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>storage</artifactId>
+            <version>${gluon.attach.version}</version>
+        </dependency>
+
+        <!-- Gluon Attach: Util Required internally by Attach services -->
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>util</artifactId>
+            <version>${gluon.attach.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Standard Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugin.version}</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.plugin.version}</version>
+                <configuration>
+                     <mainClass>com.github.wargulwb.androidtest.MainApp</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- GluonFX Plugin: Handles Android native compilation and deployment -->
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>gluonfx-maven-plugin</artifactId>
+                <version>${gluonfx.plugin.version}</version>
+                <configuration>
+                    <!-- Target platform -->
+                    <target>android</target>
+                    
+                    <!-- Your fully qualified main class name -->
+                    <mainClass>com.github.wargulwb.androidtest.MainApp</mainClass>
+                    
+                    <!-- Inject Mobile Services into GraalVM compilation -->
+                    <attachList>
+                        <list>storage</list>
+                    </attachList>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
