@@ -15,16 +15,22 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      - name: Setup Maven 3.8.8
-        uses: stain/setup-maven@v7
-        with:
-          maven-version: '3.8.8'
+      # explicitly install Maven 3.8.8 because the gluon plugin does not work with newer versions
+      # but the ubuntu image comes with a new maven version preinstalled
+      - name: Install Maven 3.8.8
+        run: |
+          wget https://apache.org
+          tar -xzf apache-maven-3.8.8-bin.tar.gz
+          echo "$(pwd)/apache-maven-3.8.8/bin" >> $GITHUB_PATH
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Build with Maven
-        run: mvn clean gluonfx:build
+        run: |
+          # Verify the correct version is loaded in this step
+          mvn -version
+          mvn clean gluonfx:build
         env:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
