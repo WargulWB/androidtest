@@ -37,6 +37,16 @@ jobs:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
           GRAALVM_HOME: ${{ env.JAVA_HOME }}
 
+      # upload gluon logs to figure out what went wrong
+      - name: Upload Debug Logs on Failure
+        if: always() 
+        uses: actions/upload-artifact@v4
+        with:
+          name: gluonfx-error-logs
+          path: |
+            target/gluonfx/log/
+            target/gluonfx/aarch64-android/gvm/log/
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
