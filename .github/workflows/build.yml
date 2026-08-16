@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
-          distribution: 'gluon-graalvm' # Uses Gluon's Android-compatible GraalVM
+          distribution: 'graalvm'
           java-version: '21'
           cache: 'maven'
 
