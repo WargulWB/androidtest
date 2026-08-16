@@ -19,9 +19,11 @@ jobs:
       # but the ubuntu image comes with a new maven version preinstalled
       - name: Install Maven 3.8.8
         run: |
-          wget https://apache.org
+          wget https://archive.apache.org/dist/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
           tar -xzf apache-maven-3.8.8-bin.tar.gz
-          echo "$(pwd)/apache-maven-3.8.8/bin" >> $GITHUB_PATH
+          sudo mv apache-maven-3.8.8 /opt/maven
+          sudo rm -f /usr/bin/mvn  # Remove existing symbolic link if it exists
+          sudo ln -s /opt/maven/bin/mvn /usr/bin/mvn  # Create new symbolic link
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
