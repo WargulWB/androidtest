@@ -9,10 +9,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'gluon-graalvm' # Uses Gluon's Android-compatible GraalVM
           java-version: '21'
+          cache: 'maven'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
