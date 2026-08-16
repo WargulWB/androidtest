@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,6 +17,8 @@ jobs:
 
       - name: Setup GraalVM
         uses: gluonhq/setup-graalvm@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -28,11 +33,11 @@ jobs:
 
       - name: Build native image
         run: |
-          mvn -Pandroid clean gluonfx:build
+          mvn -Pandroid clean gluonfx:build -e
 
-      - name: Package APK
+      - name: Package Android Application (APK)
         run: |
-          mvn -Pandroid gluonfx:package
+          mvn -Pandroid gluonfx:package -e
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
