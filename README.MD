@@ -13,5 +13,5 @@ Should work like this:
 mvn gluonfx:install gluonfx:nativerun
 ```
 
-But may system architecter AMD64 differs from the phone architectur aarch64, which is why I use a github action to run the native build instead.
+But my system architecture 'x86_64-microsoft-windows' differs from the phone architectur 'aarch64-linux-android', which is why I use a github action to run the native build instead.
 
